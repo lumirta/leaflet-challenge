@@ -8,31 +8,29 @@ body,
 html {
   height: 100%;
 }
-
-
-.leaflet-popup-content {
-  text-align: center;
-}
-
 .legend {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  clear: both;
-}
-.legend i {
-  display: inline-block;
-  width: 30px;
-  height: 22px;
-}
-.legend .min {
-  float: left;
-  padding-bottom: 5px;
-}
-.legend .max {
-  float: right;
+  padding: 10px;
+  line-height: 18px;
+  color: #555;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
-h1 {
-  text-align: center;
+.legend i {
+  float: left;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.leaflet-bottom.leaflet-left {
+  width: 90%;
+}
+
+.leaflet-control-container .leaflet-timeline-controls {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  margin-bottom: 15px;
 }

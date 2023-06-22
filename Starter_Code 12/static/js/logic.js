@@ -2,7 +2,7 @@
 //storing the URL for the GeoJSON data
 const url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
 
-// Adding a Leaflet tile layer.
+// Adding a Leaflet tile layers
 let streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
@@ -12,14 +12,14 @@ let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
   });
 
 
-// Creating a Leaflet map object.
+// Creating a Leaflet map object
 var myMap = L.map("map", {
     center: [39.32, -111.09],
     zoom: 4.5,
     layers: [streets]
 });
 
-//defining basemaps as the streetmap
+//defining basemaps as the streetmap and topohraphic map
 let baseMaps = {
     "Street map": streets,
     "Topographic Map": topo
@@ -38,7 +38,7 @@ let overlays = {
 //adding a control layer and pass in baseMaps and overlays
 L.control.layers(baseMaps, overlays).addTo(myMap);
 
-//unction that will dictate the stying of the earthquake points on the map
+//function that will dictate the stying of the earthquake points on the map
 function styleInfo(feature) {
     return {
         color: chooseColor(feature.geometry.coordinates[2]),
@@ -53,7 +53,7 @@ function chooseColor(depth) {
     else if (depth > 10 & depth <= 30) return "yellow";
     else if (depth > 30 & depth <= 50) return "orange";
     else if (depth > 50 & depth <= 70) return "purple";
-    else if (depth > 70 & depth <= 90) return "darkblue";
+    else if (depth > 70 & depth <= 90) return "blue";
     else return "red";
 };
 
@@ -74,7 +74,7 @@ d3.json(url).then(function (data) {
 
 });
 
-//create legend, credit to this website for the structure: https://codepen.io/haakseth/pen/KQbjdO -- this structure is referenced in style.css
+//creating a legend that is providing context for map data
 var legend = L.control({ position: "bottomright" });
 legend.onAdd = function(myMap) {
     var div = L.DomUtil.create("div", "legend");
@@ -88,17 +88,17 @@ legend.onAdd = function(myMap) {
   
     return div;
   };
-  //add the legend to the map
+  //adding the legend to the map
   legend.addTo(myMap);
 
-//scratch work for collecting the necessary  and console logging
-//collect data with d3
+//scratching work for collecting the necessary  and console logging
+//collecting data with d3
 d3.json(url).then(function (data) {
     console.log(data);
     let features = data.features;
     console.log(features);
 
-    let results = features.filter(id => id.id == "nc73872510"); //replace the id string with the argument of the function once created
+    let results = features.filter(id => id.id == "nc73872510");
     let first_result = results[0];
     console.log(first_result);
     let geometry = first_result.geometry;
@@ -110,7 +110,8 @@ d3.json(url).then(function (data) {
     console.log(coordinates[2]); // depth of earthquake
     let magnitude = first_result.properties.mag;
     console.log(magnitude);
-    //define depth variable
+
+    //defining depth variable
     let depth = geometry.coordinates[2];
     console.log(depth);
     let id = first_result.id;
